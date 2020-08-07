@@ -222,3 +222,5 @@ filtrar::[Int]->(Int->Bool)->[Int]
 filtrar [] _ = []
 filtrar (x:xs) f|f x= x:filtrar xs f
 				|otherwise = filtrar xs f
+
+--
