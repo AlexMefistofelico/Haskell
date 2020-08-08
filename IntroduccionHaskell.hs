@@ -1,4 +1,4 @@
-module SIS233OA where
+0module SIS233OA where
 cuadrado::Int->Int
 cuadrado n = n*n
 
