@@ -268,7 +268,6 @@ comun (xs:xss) (ys:yss) = inter xs ys:comun xss yss
 {-
 3.-	en practica
 -}
-comun' n m = inter (aLista m) (aLista n)
 
 
 ------PLUS
