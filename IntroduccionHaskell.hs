@@ -203,8 +203,9 @@ c = 1
 [3,1,6]
 -}
 
---aLista::Int->[Int]
-
+aLista::Int->[Int]
+aLista n |n<10 = [n]
+		 |otherwise = (mod n 10):aLista (div n 10)
 						
 sumaLista::Int->Int->[Int]
 sumaLista n m = reverso (sumList (aLista n) (aLista m) 0)
@@ -215,8 +216,6 @@ sumaLista n m = reverso (sumList (aLista n) (aLista m) 0)
 					sumList [] ys _ = ys
 					sumList (x:xs) (y:ys) c = ((x+y+c) `mod` 10):sumList xs ys ((x+y+c) `div` 10)
 
-					aLista n |n<10 = [n]
-							 |otherwise = (mod n 10):aLista (div n 10)
 
 filtrar::[Int]->(Int->Bool)->[Int]
 filtrar [] _ = []
@@ -238,8 +237,9 @@ diff (x:xs) ys|noEsta x ys = x:diff xs ys
 				noEsta m (x:xs)|m==x=False
 							   |otherwise = noEsta m xs
 {-
-2.-
+2.-	ya realizado
 -}
+
 {-
 3.- En Gofer/Haskell Dada una lista de lista (matriz) retornar en una lista de listas unicamente los numeros pares. Ej.
 [[6,2,8,3],[2,1,9,4],[1,9,7,2],[6,2,9,1]]	Retorna: [[6,2,8],[2,4],[2],[6,2]]
@@ -248,9 +248,27 @@ diff (x:xs) ys|noEsta x ys = x:diff xs ys
 filtMatriz::[[Int]]->[[Int]]
 filtMatriz [] = []
 filtMatriz (xs:xss) = filtrar xs even:filtMatriz xss
+{-++++++++++++++++++++++++++++++++++++++++++++++++++-}
+{-
+1.-En Gofer/Haskell. Dada dos matrices con la misma cantidada de las filas, retornar en una lista de listas los elementos comunes de ambas matrices
+por filas Ej. [[6,2,8,3],[2,1,9,4],[1,9,7,2],[6,2,9,1]] [[8,3,6],[1,6,2],[4,8,3],[2,7,9]] -> [[6,8,3],[2,1],[],[2,9]]
+-}
+inter::[Int]->[Int]->[Int] -- interseccion de listas..
+inter [] _ = []
+inter (x:xs) ys|elem x ys = x:inter xs ys
+			   |otherwise = inter xs ys
 
+comun::[[Int]]->[[Int]]->[[Int]]
+comun (xs:xss) (ys:yss) = inter xs ys:comun xss yss 
+					
+{-
+2.- ya realizado
+-}
 
-
+{-
+3.-	en practica
+-}
+comun' n m = inter (aLista m) (aLista n)
 
 
 ------PLUS
@@ -261,3 +279,4 @@ filtrarMatriz xss = "\n"++comoMatriz xss ++ "\nFiltrando Pares:\n\n"++ comoMatri
 								where
 									comMat [] = []
 									comMat (xs:xss) = show xs:comMat xss
+
