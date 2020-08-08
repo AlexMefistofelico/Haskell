@@ -27,8 +27,8 @@ isAscii   -- c < 128
 isControl
 isPrint
 isSpace
-isUpper
-isLower
+isUpper     -- retorna true si es mayuscula
+isLower     -- retorna true si es minuscula
 isAlpha
 isDigit
 isAlphanum
