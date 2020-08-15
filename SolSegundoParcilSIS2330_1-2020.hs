@@ -10,15 +10,15 @@ bloque where (donde) para definiciones interna de funciones o otros argumentos =
 -}
 
 esPrimo::Int->Bool						
-esPrimo n = esPrim n 2 								--llamamos a funcion que realmente hace el trabajo
+esPrimo n = esPrim n 2 							--llamamos a funcion que realmente hace el trabajo
 		 where										--<w>
 			esPrim n i|i > div n 2 = True			--<b> si mi contador es mayor n/2 NO encontraremos otro divisor por tanto es Primo 	
 					  |mod n i == 0 = False			--<b> si encontramos un divisor NO es primo divisores [2..n/2]						
 					  |otherwise = esPrim n (i+1)	--<r> otro caso solo desplazamos divisor i+1 al siguiente divisores					
 
 listaPrimos::[Int]->[Int]
-listaPrimos [] = [] 							--<b> si mi lista es vacia			
-listaPrimos (x:xs)|esPrimo x = x:listaPrimos xs --<r> si primer valor(x) es primo se lo agrega al resultado 
+listaPrimos [] = [] 						--<b> si mi lista es vacia			
+listaPrimos (x:xs)|esPrimo x = x:listaPrimos xs                 --<r> si primer valor(x) es primo se lo agrega al resultado 
 				  |otherwise = listaPrimos xs 	--<r> si no es primo x no agregamos pero seguimos con el resto lista(xs)
 
 {-	*** EJEMPLO EJECUCIÓN... ***
@@ -38,13 +38,13 @@ listaPrimos (x:xs)|esPrimo x = x:listaPrimos xs --<r> si primer valor(x) es prim
  lista resultante solo tiene dos elementos.
 -}
 operaDigitos::Int->[Int]
-operaDigitos n = opeDig n 0 1												--definicion solo para claridad en tiempo de llamana 
-			  where                                                         --<w>
-			  	 opeDig 0 s m = [s,m]										--<b> si n=0 s=suma m=producto ... retornamos como lo expresado
-			  	 opeDig n s m |even ultDig = opeDig (div n 10) (s+ultDig) m	--<r> si UlitmoDigito es par sumamos a s (suma) 
+operaDigitos n = opeDig n 0 1								                --definicion solo para claridad en tiempo de llamana 
+			  where                                                                         --<w>
+			  	 opeDig 0 s m = [s,m]					                --<b> si n=0 s=suma m=producto ... retornamos como lo expresado
+			  	 opeDig n s m |even ultDig = opeDig (div n 10) (s+ultDig) m	        --<r> si UlitmoDigito es par sumamos a s (suma) 
 			  	 			  |otherwise = opeDig (div n 10) s (m*ultDig)	--<r> en otro caso (impar) multiplicamos a m (producto)
 				  	 			where										--<w>			
-				  	 				ultDig = mod n 10 						--definimos Ultimo Digito			
+				  	 				ultDig = mod n 10 		--definimos Ultimo Digito			
 
 {-	*** EJEMPLO EJECUCIÓN... ***
 
@@ -68,10 +68,10 @@ En la fila 2 hay 3 números pares
 reporte::[[Int]]->Int->String
 reporte [] _ = ""										--<b> si mi lista(lista de listas) e vacia retornamos cadena vacia (no imprimible) 																
 reporte (xs:xss) i = "En la fila "++show(i)++" hay "++show(lisPar xs)++" pares\n"++reporte xss (i+1)
-				where 									--<w> 
+				where 								--<w> 
 					lisPar [] = 0 						--<b> si mi lista es vacia no hay pares por tanto el resultado 0
-					lisPar (x:xs)|even x = 1+lisPar xs 	--<r> sumamos +1 a nuestro resultado si primer elento(x) es par
-								 |otherwise = lisPar xs --<r> caso contrario llamanos a funcion si nuestro primer elemento (el resto lista)
+					lisPar (x:xs)|even x = 1+lisPar xs 	                --<r> sumamos +1 a nuestro resultado si primer elento(x) es par
+								 |otherwise = lisPar xs         --<r> caso contrario llamanos a funcion si nuestro primer elemento (el resto lista)
 {-
 para cada lista (xs) de las lista de listas, hacemos reporte de #fila (i) + #pares esa lista(lisPar xs) + llamada recursiva para pasar ala
 siguiente lista de la lista de listas.
@@ -122,13 +122,13 @@ encuentran en ambos numeros. P. ejemplo: 4725 y 2934, retorna [4,2]
 -}
 
 comun'::Int->Int->[Int]
-comun' 0 m = []													--<b> si N=0 no tenemos mas que recorrer por tanto terminamos
-comun' n m|esta (mod m 10) n = (mod m 10):comun' (div m 10) n 	--<r> si ultimo digito de "m" esta en el numero "n" lo agregamos a lista resul.
-		  |otherwise = comun' (div m 10) n 						--<r> en otro caso seguimos con los siguientes digitos en m eliminando el ultimo dig.
-		  where													--<w> (a continuación)funcion que verifica si un digito esta en un numero
-			esta d 0 = False 									--<b> el nn=0 ya hay nada que hacer por que no hay mas digitos donde buscar
-			esta d nn|d == (mod nn 10) = True					--<b> si digito "d" == al ultimo digito de "nn",encontramos el digito por tanto "d" esta en "nn"
-					 |otherwise = esta d (div nn 10)   			--<r> en otro caso seguimos buscando eliminando el ultimo digito de "nn" con
+comun' 0 m = []								        --<b> si N=0 no tenemos mas que recorrer por tanto terminamos
+comun' n m|esta (mod m 10) n = (mod m 10):comun' (div m 10) n 	                --<r> si ultimo digito de "m" esta en el numero "n" lo agregamos a lista resul.
+		  |otherwise = comun' (div m 10) n 				--<r> en otro caso seguimos con los siguientes digitos en m eliminando el ultimo dig.
+		  where								--<w> (a continuación)funcion que verifica si un digito esta en un numero
+			esta d 0 = False 					--<b> el nn=0 ya hay nada que hacer por que no hay mas digitos donde buscar
+			esta d nn|d == (mod nn 10) = True			--<b> si digito "d" == al ultimo digito de "nn",encontramos el digito por tanto "d" esta en "nn"
+					 |otherwise = esta d (div nn 10)   	--<r> en otro caso seguimos buscando eliminando el ultimo digito de "nn" con
 
 {-	*** EJEMPLO EJECUCIÓN... ***
 
@@ -145,7 +145,7 @@ comun' n m|esta (mod m 10) n = (mod m 10):comun' (div m 10) n 	--<r> si ultimo d
 --otra posible solucion...
 {-
 comun::Int->Int->[Int]
-comun n m = inter (aLista m) (aLista n)							--solo esta linea es solucion si se toma en cuenta lo que se hizo en clases.
+comun n m = inter (aLista m) (aLista n)						--solo esta linea es solucion si se toma en cuenta lo que se hizo en clases.
 		where
 			inter [] _ = []
 			inter (x:xs) ys|elem x ys = x:inter xs ys
